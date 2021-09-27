@@ -74,7 +74,7 @@ server.put('/api/users/:id', async (req, res) => {
 
     const { id } = req.params;
     const updatedUser = await findById(id);
-    const updates = await update(id, changes);
+
     try {
         if (!updatedUser) {
             res
@@ -85,6 +85,7 @@ server.put('/api/users/:id', async (req, res) => {
                 .status(400)
                 .json({ message: 'Please provide name and bio for the user' });
         } else {
+            const updates = await update(id, changes);
             res.status(200).json(updates);
         }
     } catch (error) {
